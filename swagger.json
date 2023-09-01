@@ -1,0 +1,26 @@
+{
+    "definition": {
+      "openapi": "3.1.0",
+      "info": {
+        "title": "Rest Express API with Swagger",
+        "version": "0.1.0",
+        "description":
+          "This is a simple CRUD API application made with Express and documented with Swagger",
+        "license": {
+          "name": "Omar",
+          "url": ""
+        },
+        "contact": {
+          "name": "Omar",
+          "url": "https://portoflio-8erjd6yv1-omarmmohhammedd.vercel.app/",
+          "email": "omar.mmohhammedd@email.com"
+        }
+      },
+      "servers": [
+        {
+          "url": "http://localhost:8080"
+        }
+      ]
+    },
+    "apis": ["src/Routes/Post/index.js","src/Routes/Auth/index.js","src/Routes/Admin/index.js"]
+  }

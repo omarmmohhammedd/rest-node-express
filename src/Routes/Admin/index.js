@@ -3,7 +3,7 @@
  * @swagger
  * tags:
  *   name: Admin
- *   description: Endpoints for managing admins and users
+ *   description: Endpoints for managing  users
  */
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };

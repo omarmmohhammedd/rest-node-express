@@ -2,7 +2,7 @@ import { PrismaClient } from "@prisma/client";
 import { NextFunction, Request, Response } from "express";
 import expressAsyncHandler from "express-async-handler";
 import { ApiError } from "../../Utils/ApiError/ApiError";
-import * as bcrypt from "bcrypt"
+import * as bcrypt from "bcryptjs"
 import {sign} from "jsonwebtoken"
 
 const prisma = new PrismaClient()

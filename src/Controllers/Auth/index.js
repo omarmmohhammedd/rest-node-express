@@ -39,7 +39,7 @@ exports.Register = exports.Login = void 0;
 const client_1 = require("@prisma/client");
 const express_async_handler_1 = __importDefault(require("express-async-handler"));
 const ApiError_1 = require("../../Utils/ApiError/ApiError");
-const bcrypt = __importStar(require("bcrypt"));
+const bcrypt = __importStar(require("bcryptjs"));
 const jsonwebtoken_1 = require("jsonwebtoken");
 const prisma = new client_1.PrismaClient();
 exports.Login = (0, express_async_handler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {

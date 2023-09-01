@@ -7,7 +7,7 @@
 
 
 import express, { Router } from "express"
-import { DeletePost, GetPost, GetPosts, UpdatePost, addPost } from "../../Controllers/Post"
+import { AddComment, DeleteComment, DeletePost, GetPost, GetPosts, Like, UpdatePost, addPost } from "../../Controllers/Post"
 import { AddPostValidator, UpdatePostValidator } from "../../Utils/Validators/Post"
 
 
@@ -139,5 +139,89 @@ route.patch('/:id', UpdatePostValidator, UpdatePost)
  *         description: Not Found
  */
 
-route.delete('/:id',DeletePost)
+route.delete('/:id', DeletePost)
+
+
+
+/**
+ * @swagger
+ * /like/{id}:
+ *   patch:
+ *      summary: Toggle like on post
+ *      tags: [Posts]
+ *      parameters:
+ *        - in: path
+ *          name: id
+ *          required: true
+ *          description: ID of the post to update
+ *          schema:
+ *            type: integer
+ *      responses:
+ *        200:
+ *          description: OK
+ *        400 :
+ *          description: Bad Request
+ */
+
+
+route.patch('/like/:id',Like)
+
+
+/**
+ * @swagger
+ * /comment/{id}:
+ *   post:
+ *      summary: Add comment  on post
+ *      tags: [Posts]
+ *      parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the Post to Add Comment
+ *         schema:
+ *           type: integer
+ *      requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - body
+ *             properties:
+ *               body:
+ *                 type: string
+ *             example:
+ *               body: Test Comment
+ *      responses:
+ *       200:
+ *         description: OK
+ */
+
+
+route.post('/comment/:id', AddComment)
+
+
+/**
+ * @swagger
+ * /comment/{id}:
+ *   delete:
+ *     summary: Delete a comment
+ *     tags: [Posts]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the Comment to delete
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: OK
+ *       400:
+ *         description: Not Found
+ */
+
+route.delete('/comment/:id', DeleteComment)
+
 export default route

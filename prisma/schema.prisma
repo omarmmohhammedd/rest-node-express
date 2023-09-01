@@ -16,21 +16,32 @@ enum ROLES {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
+  id       Int       @id @default(autoincrement())
   username String
   password String
-  role     ROLES  @default(User)
+  role     ROLES     @default(User)
   Post     Post[]
+  Comment  Comment[]
 }
 
 model Post {
-  id          Int      @id @default(autoincrement())
+  id          Int       @id @default(autoincrement())
   title       String
   description String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  User        User     @relation(fields: [user_id], references: [id])
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  User        User      @relation(fields: [user_id], references: [id])
   user_id     Int
-  Likes       Json[]
-  Comments    Json[]
+  Likes       Int[]
+  Comments    Comment[]
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  body      String
+  createdAt DateTime @default(now())
+  Post      Post?    @relation(fields: [post_id], references: [id])
+  post_id   Int?
+  User      User?    @relation(fields: [user_id], references: [id])
+  user_id   Int
 }
