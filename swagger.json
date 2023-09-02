@@ -22,5 +22,5 @@
         }
       ]
     },
-    "apis": ["src/Routes/Post/index.js","src/Routes/Auth/index.js","src/Routes/Admin/index.js"]
+    "apis": ["src/Routes/Post/index.js","src/Routes/Auth/index.js","src/Routes/Admin/index.js","src/Routes/Chat/index.js"]
   }
