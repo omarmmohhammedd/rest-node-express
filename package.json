@@ -1,17 +1,17 @@
 {
   "name": "rest-express",
   "version": "1.0.0",
-  "description": "Express App With TypeScript",
+  "description": "Bolg App",
   "main": "src/App.js",
   "type": "commonjs",
   "scripts": {
-    "build": "  npx tsc",
+    "build": "npm ci && npx tsc",
     "test": " jest",
-    "start": "npm run build && ts-node src/App.js",
-    "dev": "npm run build && nodemon src/App.js"
+    "start": "node src/App.js",
+    "start:dev": "npm run build && nodemon src/App.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Omar Naguib",
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^5.2.0",
