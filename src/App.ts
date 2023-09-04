@@ -37,13 +37,16 @@ MainRoutes(app)
   
 // Swagger Setup
 const specs = swaggerJsdoc(swaggerDocment);
+
 app.use(
   "/api-docs",
   swaggerUi.serve,
   swaggerUi.setup(specs, { explorer: true ,swaggerOptions:{url:'http://localhost:8080/api-docs/docs'}})
 );
 
-const server= createServer(app)
+
+const server = createServer(app)
+
 // Socket IO Initialization
 IoInit(server).then((io) => {
   io.on("connection", (socket) => ChatIO(io,socket))
@@ -52,8 +55,5 @@ IoInit(server).then((io) => {
 // Error Handler Middleware
 app.use(ErrorHandler)
 
-
 // Running App
 server.listen(port, () => console.log(`⚡️[server]: Server is running at port ${port}`));
-
-export default app
