@@ -5,7 +5,7 @@
   "main": "src/App.js",
   "type": "commonjs",
   "scripts": {
-    "build": "npm ci && npx tsc",
+    "build": "npm i && npx tsc",
     "test": " jest",
     "start": "node src/App.js",
     "start:dev": "npm run build && nodemon src/App.js"
