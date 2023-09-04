@@ -8,7 +8,7 @@
     "build": "npm i && npx tsc",
     "test": " jest",
     "start": "node src/App.js",
-    "start:dev": "npm run build && nodemon src/App.js"
+    "start:dev": "npx tsc && nodemon src/App.js"
   },
   "keywords": [],
   "author": "Omar Naguib",

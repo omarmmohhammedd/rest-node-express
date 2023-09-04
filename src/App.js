@@ -38,6 +38,7 @@ const index_1 = __importDefault(require("./Routes/index"));
 const Error_1 = __importDefault(require("./Middlewares/Error"));
 const Socket_1 = __importDefault(require("./Config/Socket"));
 const Chat_1 = require("./Controllers/Chat");
+const http_1 = require("http");
 const app = (0, express_1.default)();
 const port = process.env.PORT;
 // Enable Dotenv Variables
@@ -59,12 +60,13 @@ app.get('/', (req, res) => {
 // Swagger Setup
 const specs = (0, swagger_jsdoc_1.default)(swaggerDocment);
 app.use("/api-docs", swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(specs, { explorer: true, swaggerOptions: { url: 'http://localhost:8080/api-docs/docs' } }));
+const server = (0, http_1.createServer)(app);
 // Socket IO Initialization
-(0, Socket_1.default)().then((io) => {
+(0, Socket_1.default)(server).then((io) => {
     io.on("connection", (socket) => (0, Chat_1.ChatIO)(io, socket));
 });
 // Error Handler Middleware
 app.use(Error_1.default);
 // Running App
-app.listen(port, () => console.log(`⚡️[server]: Server is running at port ${port}`));
+server.listen(port, () => console.log(`⚡️[server]: Server is running at port ${port}`));
 exports.default = app;

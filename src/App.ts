@@ -10,6 +10,7 @@ import MainRoutes from "./Routes/index"
 import ErrorHandler from "./Middlewares/Error"
 import IoInit from "./Config/Socket"
 import { ChatIO } from './Controllers/Chat'
+import { createServer } from 'http'
 
 
 const app: Express = express();
@@ -42,12 +43,10 @@ app.use(
   swaggerUi.setup(specs, { explorer: true ,swaggerOptions:{url:'http://localhost:8080/api-docs/docs'}})
 );
 
+const server= createServer(app)
 // Socket IO Initialization
-IoInit().then((io) => {
-  io.on("connection", (socket) => {
-    console.log("New Client Connected => " + socket.id)
-    ChatIO(io,socket)
-  })
+IoInit(server).then((io) => {
+  io.on("connection", (socket) => ChatIO(io,socket))
 })
 
 // Error Handler Middleware
@@ -55,6 +54,6 @@ app.use(ErrorHandler)
 
 
 // Running App
-app.listen(port, () => console.log(`⚡️[server]: Server is running at port ${port}`));
+server.listen(port, () => console.log(`⚡️[server]: Server is running at port ${port}`));
 
 export default app
