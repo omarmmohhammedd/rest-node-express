@@ -13,7 +13,8 @@ const io = async () : Promise<Server> => {
     })
     // Add Redis Stream Adapter And Run Server
     const server : Server= new Server(5000,{
-        adapter: createAdapter(redisClient)
+        adapter: createAdapter(redisClient),
+        cors:{origin:'*'}
     })
     return server 
 }

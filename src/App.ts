@@ -44,7 +44,10 @@ app.use(
 
 // Socket IO Initialization
 IoInit().then((io) => {
-  io.on("connection", (socket) => ChatIO(io,socket))
+  io.on("connection", (socket) => {
+    console.log("New Client Connected => " + socket.id)
+    ChatIO(io,socket)
+  })
 })
 
 // Error Handler Middleware
