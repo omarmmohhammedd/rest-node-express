@@ -44,7 +44,6 @@ app.use(
 
 // Socket IO Initialization
 IoInit().then((io) => {
-  console.log(io)
   io.on("connection", (socket) => ChatIO(io,socket))
 })
 
@@ -53,8 +52,6 @@ app.use(ErrorHandler)
 
 
 // Running App
-app.listen(port, () => {
-  console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
-});
+app.listen(port, () => console.log(`⚡️[server]: Server is running at port ${port}`));
 
 export default app
