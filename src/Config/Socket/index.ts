@@ -15,6 +15,7 @@ const io = async () : Promise<Server> => {
     const server : Server= new Server(5000,{
         adapter: createAdapter(redisClient)
     })
+    console.log(server)
     return server 
 }
 

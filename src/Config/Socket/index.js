@@ -25,6 +25,7 @@ const io = () => __awaiter(void 0, void 0, void 0, function* () {
     const server = new socket_io_1.Server(5000, {
         adapter: (0, redis_streams_adapter_1.createAdapter)(exports.redisClient)
     });
+    console.log(server);
     return server;
 });
 exports.default = io;

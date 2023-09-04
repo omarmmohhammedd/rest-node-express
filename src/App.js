@@ -61,6 +61,7 @@ const specs = (0, swagger_jsdoc_1.default)(swaggerDocment);
 app.use("/api-docs", swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(specs, { explorer: true, swaggerOptions: { url: 'http://localhost:8080/api-docs/docs' } }));
 // Socket IO Initialization
 (0, Socket_1.default)().then((io) => {
+    console.log(io);
     io.on("connection", (socket) => (0, Chat_1.ChatIO)(io, socket));
 });
 // Error Handler Middleware
