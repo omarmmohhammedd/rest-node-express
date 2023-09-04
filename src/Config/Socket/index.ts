@@ -12,7 +12,7 @@ const io = async () : Promise<Server> => {
         throw new ApiError(e?.message,500)
     })
     // Add Redis Stream Adapter And Run Server
-    const server : Server= new Server(5000,{
+    const server : Server= new Server({
         adapter: createAdapter(redisClient),
         cors:{origin:'*'}
     })
