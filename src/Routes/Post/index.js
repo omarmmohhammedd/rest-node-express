@@ -185,7 +185,7 @@ route.post('/comment/:id', Post_1.AddComment);
  *     tags: [Posts]
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: comment_id
  *         required: true
  *         description: ID of the Comment to delete
  *         schema:
@@ -196,5 +196,5 @@ route.post('/comment/:id', Post_1.AddComment);
  *       400:
  *         description: Not Found
  */
-route.delete('/comment/:id', Post_1.DeleteComment);
+route.delete('/comment/:comment_id', Post_1.DeleteComment);
 exports.default = route;

@@ -7,6 +7,6 @@ exports.UpdateUserValidator = void 0;
 const express_validator_1 = require("express-validator");
 const Validator_1 = __importDefault(require("../../../Middlewares/Validator"));
 exports.UpdateUserValidator = [
-    (0, express_validator_1.check)("username").notEmpty().isLength({ min: 3, max: 40 }).withMessage("Username Must Be at least 3 characters "),
+    (0, express_validator_1.check)("username").notEmpty().isLength({ min: 3, max: 40 }).withMessage("Please Add Valid Username with min 3 characters"),
     Validator_1.default
 ];

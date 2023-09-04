@@ -38,9 +38,6 @@ const route: Router = express.Router()
 
 route.get('/', getConverstions)
 
-
-
-
 route.get('/:id',getUsersConverstion)
 
 export default route

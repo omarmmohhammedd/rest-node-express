@@ -20,7 +20,8 @@ const prisma = new client_1.PrismaClient();
 const validatePost = (id) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const post = yield prisma.post.findUnique({ where: { id },
-            include: { Comments: true } });
+            include: { Comments: true }
+        });
         if (!post)
             throw new ApiError_1.ApiError("Post Not Found", 404);
         return post;
@@ -52,7 +53,7 @@ exports.GetPosts = (0, express_async_handler_1.default)((req, res, next) => __aw
             skip: ((Number(page) - 1) * Number(count)),
             include: { Comments: true }
         })
-            .then((posts) => res.json(posts));
+            .then((posts) => res.json({ posts }));
 }));
 exports.GetPost = (0, express_async_handler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
@@ -119,23 +120,24 @@ exports.Like = (0, express_async_handler_1.default)((req, res, next) => __awaite
                 include: { Comments: true }
             });
         }
-        res.json(post);
+        res.json({ post });
     }
 }));
 exports.AddComment = (0, express_async_handler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     var _e;
     const id = (_e = req.user) === null || _e === void 0 ? void 0 : _e.id;
     const { body } = req.body;
+    const post = yield (0, exports.validatePost)(Number(req.params.id));
     if (id) {
         const comment = yield prisma.comment.create({ data: { body, post_id: Number(req.params.id), user_id: id } });
-        res.json({ comment });
+        res.status(201).json({ comment });
     }
 }));
 exports.DeleteComment = (0, express_async_handler_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     var _f;
     const id = (_f = req.user) === null || _f === void 0 ? void 0 : _f.id;
-    const comment = yield prisma.comment.findUnique({ where: { id: Number(req.params.id), user_id: id } });
+    const comment = yield prisma.comment.findUnique({ where: { id: Number(req.params.comment_id), user_id: id } });
     if (!comment)
         return next(new ApiError_1.ApiError("Comment not found", 404));
-    yield prisma.comment.delete({ where: { id: Number(req.params.id), user_id: id } }).then(() => res.sendStatus(200));
+    yield prisma.comment.delete({ where: { id: Number(req.params.comment_id), user_id: id } }).then(() => res.sendStatus(200));
 }));

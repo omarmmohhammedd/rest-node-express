@@ -210,7 +210,7 @@ route.post('/comment/:id', AddComment)
  *     tags: [Posts]
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: comment_id
  *         required: true
  *         description: ID of the Comment to delete
  *         schema:
@@ -222,6 +222,6 @@ route.post('/comment/:id', AddComment)
  *         description: Not Found
  */
 
-route.delete('/comment/:id', DeleteComment)
+route.delete('/comment/:comment_id', DeleteComment)
 
 export default route

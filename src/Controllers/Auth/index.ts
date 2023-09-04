@@ -14,8 +14,9 @@ export const Login = expressAsyncHandler(async(req: Request, res: Response, next
     const match = await bcrypt.compare(password, user.password)
     if (!match) return next(new ApiError("Password Not Match", 400))
     if (process.env.TOKEN) {
-        const token = sign({id:user.id,role:user.role},process.env.TOKEN)
-        res.json({user,token})
+        const token = sign({ id: user.id, role: user.role }, process.env.TOKEN)
+        const {password,...userData} = user
+        res.json({user:userData,token})
     }else return next(new ApiError("Token Must Be Required",500))
 })
 

@@ -85,7 +85,14 @@ exports.getUsersConverstion = (0, express_async_handler_1.default)((req, res, ne
     var _b;
     const id = Number((_b = req.user) === null || _b === void 0 ? void 0 : _b.id);
     const conversation = yield prisma.conversation.findUnique({
-        where: { id: Number(req.params.id), OR: [{ userIdA: id }, { userIdB: id }] }, include: { messages: true, userA: true, userB: true }
+        where: {
+            id: Number(req.params.id),
+            OR: [
+                { userIdA: id },
+                { userIdB: id }
+            ]
+        },
+        include: { messages: true, userA: true, userB: true }
     });
     if (!conversation)
         throw new ApiError_1.ApiError("Conversation not found", 404);

@@ -9,7 +9,8 @@ const prisma= new PrismaClient()
 export const validatePost = async (id: number) => {
     try {
         const post = await prisma.post.findUnique({ where: { id } ,
-            include: { Comments: true }})
+            include: { Comments: true }
+        })
         if (!post) throw new ApiError("Post Not Found", 404)
         return post
     } catch (error:any) {
@@ -39,7 +40,7 @@ export const GetPosts = expressAsyncHandler(async (req: RequestWithUser, res: Re
             skip: ((Number(page) - 1) * Number(count)),
             include: { Comments: true }
         })
-        .then((posts)=>res.json(posts))
+        .then((posts)=>res.json({posts}))
 })
 
 export const GetPost = expressAsyncHandler(async (req: RequestWithUser, res: Response, next: NextFunction) => {
@@ -106,22 +107,23 @@ export const Like = expressAsyncHandler(async (req: RequestWithUser, res: Respon
                 include:{Comments:true}
             });
         }
-        res.json(post)
+        res.json({post})
     }
 });
 
 export const AddComment = expressAsyncHandler(async (req: RequestWithUser, res: Response, next: NextFunction) => { 
     const id = req.user?.id
     const { body } = req.body
+    const post = await validatePost(Number(req.params.id))
     if (id) {
         const comment = await prisma.comment.create({ data: { body, post_id: Number(req.params.id), user_id: id } })
-        res.json({comment})
+        res.status(201).json({comment})
     }
 })
 
 export const DeleteComment = expressAsyncHandler(async (req: RequestWithUser, res: Response, next: NextFunction) => { 
-    const  id  = req.user?.id
-    const comment = await prisma.comment.findUnique({ where: { id: Number(req.params.id) ,user_id:id} })
+    const id = req.user?.id
+    const comment = await prisma.comment.findUnique({ where: { id: Number(req.params.comment_id) ,user_id:id} })
     if (!comment) return next(new ApiError("Comment not found", 404))
-    await prisma.comment.delete({where:{id: Number(req.params.id) ,user_id:id}}).then(()=>res.sendStatus(200))
+    await prisma.comment.delete({where:{id: Number(req.params.comment_id) ,user_id:id}}).then(()=>res.sendStatus(200))
 })
